@@ -23,34 +23,41 @@ You've just been hired by the 'NYC Comic Book Society' - congratulations! The de
 
 Luckily, another developer has already started the job. We have a controller, model, and views to support the creation, listing, and display of collections. Visiting `/collections` displays all of the collections recorded by members. Unfortunately, we don't have a way for members to record the comics in each collection. **Each Collection has many Comics, and each Comic belongs to a Collection.**
 
-## Instructions / Deliverables
+## Deliverables
 
-***To help you complete this assignment, we've listed the steps required. Read through them carefully to get a sense of the requirements for this code challenge, and then tackle them one by one.***
+Implement the following features in this repository. Each item below is required for a complete submission:
 
-1. Before you start building the new functionality, make sure that you are able to create and view a new collection.
+1. **Set Up Comic Model and Associations**
+    + Create a `Comic` model and database table with columns for `name`, `description`, and a `collection_id` foreign key.
 
-2. Let's build following an inside-out approach (Domain model to views). Begin by developing the classes required to persist Comics and associate them to a Collection. You should then be able to run the code below:
+2. **Implement Model Validations**
+    + In the `Comic` model, require presence of `name` and `description`.
+    + In the `Collection` model, require presence of `name` and `address`, and ensure `name` is unique.
+    + Display validation errors in the relevant forms when a user submits invalid data.
 
-    ```Ruby
-    comic.collection = collection
-    comic.save
-    collection.comics.first === comic # should return true
-    collection = Collection.first
-    comic = Comic.create(name:'Amazing Fantasy #15', description: 'First appearance of Spider-Man')
-    comic.collection = collection
-    comic.save
-    collection.comics.first === comic # should return true
-    ```
+3. **RESTful Routes and Controller Actions for Comics**
+    + Add RESTful routes for `comics` (at minimum: `new`, `create`, `show`, and `destroy`).
+    + Implement controller actions for `new`, `create`, `show`, and `destroy` in a `ComicsController`.
 
-3. Set up validations for the comic and the collection:
+4. **Build and Display Forms for Comics**
+    + Add a form to create a new comic. This form should be accessible from a `Collection` show page via a clearly labeled link or button (e.g., "Add Comic").
+    + The form must include fields for `name` and `description`, and must associate the new comic with the current collection.
+    + After submission, redirect to the new comic's show page if successful, or re-render the form with errors if not.
 
-   + A comic must have a name and a description.
-   + A collection must have a unique name and an address.
+5. **Update Collection Show Page**
+    + On the `Collection` show page, display a list of all comics that belong to that collection. Each comic should be shown with its name and description.
+    + Each comic in the list should link to its individual show page.
+    + Include a link or button to add a new comic to this collection.
 
-4. Now that our backend domain model is properly setup we can build the user facing functionality. Adding this functionality will require you to develop code across many different parts of the application including routes, controllers and views.
+6. **Comic Show Page**
+    + Create a show page for each comic that displays its name, description, and the name of its collection.
+    + Include a link back to the parent collection's show page.
+    + Include a button or link to delete the comic, which should remove it from the database and redirect back to the parent collection's show page.
 
-Items needed to complete an application that works as described include:
+7. **Database Migrations**
+    + Create and run all necessary migrations to add the `comics` table and set up the association with `collections`.
+    + Ensure the schema reflects all required columns and relationships.
 
-+ `Comic` new, create, and show actions & corresponding views that display all shown data
-+ `Collection` show page updated to list all its comics
-+ All the links and forms to connect the models (the `Comic` show page should link back to its `Collection` show page)
+8. **Rails Console Usage**
+    + You should be able to create, query, and associate `Collection` and `Comic` records in the Rails console using ActiveRecord methods.
+    + Test that validations and associations work as expected in the console.
