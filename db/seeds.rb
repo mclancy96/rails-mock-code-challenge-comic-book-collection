@@ -7,9 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 #
 #   1
-Pizzeria.destroy_all
+Collection.destroy_all
  
-Pizzeria.create!([{
+Collection.create!([{
   name: "Sottocasa NYC",
   address: "298 Atlantic Ave, Brooklyn, NY 11201",
 },
